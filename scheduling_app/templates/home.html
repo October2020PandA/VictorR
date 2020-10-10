@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scheduling App</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <!-- <link rel="stylesheet" href="{% static 'cstyle.css' %}"> -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+</head>
+<body>
+    
+    <div class="wrap">
+
+        <h2>Welcome to the Sheduling App</h2>
+        <div class="header">
+            <h3>{{ request.user.first_name }}</h3>
+            <a href="/logout">Log Out</a>
+        </div>
+        <br>
+        
+        {% if messages %}
+        <ul class="messages_add">
+            {% for message in messages %}
+                <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+
+        <form action="/add_date" method="POST" class="add_date">
+            {% csrf_token %}
+            <label for="date">Add Date:</label><input type="date" name="date" value="{{today|date:'Y-m-d'}}">
+            <label for="time_list" id="time_list">Time:</label>
+            <input type="time" name="time_list" id="time_list" list="time_list" step="60" min="09:00" max="18:00" value="09:00">
+            <small>Office hours are 9am to 6pm</small><br>
+            <datalist id="time_list">
+                <option value="10:00">
+                <option value="11:00">
+                <option value="12:00">
+                <option value="14:00">
+                <option value="15:00">
+            </datalist>
+            <label for="desc">Description:</label><input type="text" name="desc">
+            <button type="submit" class="btn btn-primary">Add</button>
+        </form>
+        
+
+        <div class="calendar">
+            <h2>Calendar</h2>
+            <a href="/prev_month"> << Prev</a><a href="/next_month">Next >> </a>
+            {{ cal }}
+
+            <!-- <table border="0" cellpadding="0" cellspacing="0" class="month"> 
+                <tr>
+                    <th colspan="7" class="month">October{{today.month}} 2020</th>
+                </tr> 
+                <tr>
+                    <th class="mon">Mon</th>
+                    <th class="tue">Tue</th>
+                    <th class="wed">Wed</th>
+                    <th class="thu">Thu</th>
+                    <th class="fri">Fri</th>
+                    <th class="sat">Sat</th>
+                    <th class="sun">Sun</th>
+                </tr> 
+                <tr>
+                    <td class="noday">&nbsp;</td>
+                    <td class="noday">&nbsp;</td>
+                    <td class="noday">&nbsp;</td>
+                    <td class="thu">1</td>
+                    <td class="fri">2</td>
+                    <td class="sat">3</td>
+                    <td class="sun">4</td>
+                </tr>
+                <tr>
+                    <td class="noday">&nbsp;</td>
+                    <td class="noday">&nbsp;</td>
+                    <td class="noday">&nbsp;</td>
+                    <td class="thu">1</td>
+                    <td class="fri">2</td>
+                    <td class="sat">3</td>
+                    <td class="sun">4</td>
+                </tr>
+                <tr>
+                    <td class="noday">&nbsp;</td>
+                    <td class="noday">&nbsp;</td>
+                    <td class="noday">&nbsp;</td>
+                    <td class="thu">1</td>
+                    <td class="fri">2</td>
+                    <td class="sat">3</td>
+                    <td class="sun">4</td>
+                </tr>
+                <tr>
+                    <td class="noday">&nbsp;</td>
+                    <td class="noday">&nbsp;</td>
+                    <td class="noday">&nbsp;</td>
+                    <td class="thu">1</td>
+                    <td class="fri">2</td>
+                    <td class="sat">3</td>
+                    <td class="sun">4</td>
+                </tr>
+                <tr>
+                    <td class="noday">&nbsp;</td>
+                    <td class="noday">&nbsp;</td>
+                    <td class="noday">&nbsp;</td>
+                    <td class="thu">1</td>
+                    <td class="fri">2</td>
+                    <td class="sat">3</td>
+                    <td class="sun">4</td>
+                </tr>
+            </table>  -->
+
+        </div>
+        <hr>
+        <h4>Your Appoinments List</h4>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <!-- <th scope="col">ID</th> -->
+                    <th scope="col">Date</th>
+                    <th scope="col">Time</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Scheduled by</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for date in date_list %}
+                    {% if request.user.id == date.scheduler.id %}
+                    <tr>
+                        <!-- <td>{{ date.id }}</td> -->
+                        <td>{{ date.date }}</td>
+                        <td>{{ date.time }}</td>
+                        <td>{{ date.description}}</td>
+                        <td>{{ date.scheduler.first_name }}</td>
+                        {% if date.confirm == True %}
+                            <td>Confirmed</td>
+                        {% else %}
+                            <td>Pending</td>
+                        {% endif %}
+                        {% if date.date > today %}
+                        <td>
+                            {% if date.confirm == False %}
+                                <button class="btn btn-success"><a href="/confirm_page/{{date.id}}">Confirm</a></button>
+                                {% else %}
+                                <button class="btn btn-success"><a href="/un-confirm/{{date.id}}">Un-Confirm</a></button>
+                            {% endif %}
+                                <button class="btn btn-secondary"><a href="/edit/{{date.id}}">Edit</a></button>
+                                <button class="btn btn-danger"><a href="/remove/{{date.id}}">Delete</a></button>
+                        </td>
+                        {% else %}
+                        <td>
+                            <button class="btn btn-danger"><a href="/remove/{{date.id}}">Delete</a></button>
+                        </td>
+                        {% endif %}
+                    </tr>
+                    {% endif %}
+                {% endfor %}
+            </tbody>
+        </table>
+        Today : {{today}}
+
+    </div>
+
+</body>
+</html>

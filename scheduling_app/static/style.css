@@ -1,0 +1,143 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+.wrap{
+    width: 1000px;
+    margin: auto;
+    
+}
+.wrap h1, .wrap h2{
+    margin: 30px 0 30px 0;
+}
+.login, .reg{
+    width: 40%;
+    display: inline-block;
+    vertical-align: top;
+}
+.login h2, .reg h2{
+    margin-bottom: 30px;
+}
+.login{
+    margin: 0 80px 0 0;
+}
+input{
+    display: block;
+    width: 100%;
+    height: calc(1.5em + .75rem + 2px);
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+li{
+    color: #6c757d !important;
+    display: block;
+    margin-top: .25rem;
+    font-size: 80%;
+    font-weight: 400;
+}
+.messages li{
+    font-size: 16px;
+    margin-left: 12%;
+}
+
+/* Home.html Styling */
+
+.header h3, a{
+    width: 45%;
+    color: #4f86ce;
+    font-weight: bold;
+    display: inline-block;
+    vertical-align: top;
+    /* border: 1px dotted orange; */
+}
+.header a{
+    width: 10%;
+    text-align: right;
+    margin-left: 40%;
+}
+.add_date, .calendar{
+    display: inline-block;
+    vertical-align: top;
+}
+.add_date{
+    width: 30%;
+    margin: 0 50px 10px 0;
+    /* border: 1px dotted orange; */
+}
+.add_date button{
+    margin: 15px 0 0 40%
+}
+/* .add_date input{
+    margin: 0 0 0 0;
+} */
+.messages_add li, .messages_edit li{
+    font-weight: bold;
+    margin: 0 0 0 30px;
+}
+#time_list{
+    margin: 5px 0 5px 0;
+}
+.calendar{
+    width: 55%;
+    text-align: center;
+    border: 1px dotted orange;
+}
+table a{
+    width: 100%;
+    color: whitesmoke;
+    text-decoration: none;
+    text-align: center;
+}
+table button{
+    width: 115px;
+    text-align: center;
+}
+
+/* Edit.html Styling */
+
+.edit_date{
+    width: 30%;
+}
+.edit_date a{
+    color: whitesmoke;
+    font-weight: unset;
+    text-decoration: none;
+    text-align: center;
+}
+.edit_date button{
+    width: 100px;
+    color: whitesmoke;
+    text-align: center;
+    margin: 15px 0 20px 20px;
+}
+#btn_success button{
+    width: 100px;
+    color: whitesmoke;
+    text-align: center;
+    margin: 15px 0 20px 20px;
+}
+
+/* Confirmation.html Styling */
+
+.confirm button{
+    width: 191px;
+    text-align: center;
+    margin: 15px 10px 100px 0;
+}
+.confirm a{
+    text-decoration: none;
+    color: whitesmoke;
+}
+.confirm input{
+    width: auto;
+    height: auto;
+    margin: -25px 0 15px 305px;
+}

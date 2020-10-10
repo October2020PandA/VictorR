@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit your Appointment</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+    
+    <div class="wrap">
+
+        <div class="header">
+            <h2>You can EDIT your appointment</h2>
+            <h2>{{request.user.first_name}}</h2>
+        </div>
+
+        {% if messages %}
+        <ul class="messages_edit">
+            {% for message in messages %}
+                <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        
+        <div class="edit_date">
+            <form action="/edit_date/{{date.id}}" method="POST">
+                {% csrf_token %}
+                <label for="date" id="date">Edit Date: </label><input type="date" name="date" value="{{date.date|date:'Y-m-d' }}">
+                <label for="time_list" id="time_list">Time: </label><input type="time" name="time_list" step="60" value="{{date.time|time:'h:i A'}}">
+                <label for="desc" id="desc">Edit Description</label><input type="text" name="desc" value="{{date.description}}">
+                <button type="submit" class="btn btn-secondary btn-sm">Edit</button>
+                <button class="btn btn-primary btn-sm"><a href="/home">Cancel</a></button>
+            </form>
+        </div>
+
+    </div>
+
+</body>
+</html>
