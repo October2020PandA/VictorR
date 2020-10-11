@@ -116,7 +116,7 @@ def add_date(request):
                 messages.error(request, value)
             return redirect ('/home')
         Schedules.objects.create(date=request.POST['date'],time=request.POST['time_list'], description=request.POST['desc'], scheduler=request.user)
-        print(request.POST['date'])
+        # print(request.POST['date'])
         return redirect('/home')
     return redirect('/home')
 
@@ -186,29 +186,3 @@ def un_confirm(request, id):
     schedule.confirm = False
     schedule.save() 
     return redirect('/home')
-
-# Calendar Class #
-
-# class CalendarView(generic.ListView):
-#     model = Event
-#     template_name = 'home.html'
-
-#     def get_context_data(self, **kwargs):
-#         context = super().get_context_data(**kwargs)
-
-#         # use today's date for the calendar
-#         d = get_date(self.request.GET.get('day', None))
-
-#         # Instantiate our calendar class with today's year and date
-#         cal = Calendar(d.year, d.month)
-
-#         # Call the formatmonth method, which returns our calendar as a table
-#         html_cal = cal.formatmonth(withyear=True)
-#         context['calendar'] = mark_safe(html_cal)
-#         return context
-
-# def get_date(req_day):
-#     if req_day:
-#         year, month = (int(x) for x in req_day.split('-'))
-#         return date(year, month, day=1)
-#     return datetime.today()

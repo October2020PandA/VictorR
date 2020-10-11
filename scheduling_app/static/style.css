@@ -87,17 +87,17 @@ li{
 }
 .calendar{
     width: 55%;
-    height: 515px;
+    /* height: 515px; */
     text-align: center;
     border: 1px dotted orange;
 }
-table a{
+/* table a{
     width: 100%;
     color: whitesmoke;
     text-decoration: none;
     text-align: center;
-}
-table button{
+} */
+.table_btn button{
     width: 115px;
     text-align: center;
 }
@@ -128,10 +128,10 @@ table button{
 
 /* Confirmation.html Styling */
 
-.confirm button{
-    width: 191px;
+.confirm form button{
+    width: 140px;
     text-align: center;
-    margin: 15px 10px 100px 0;
+    /* margin: 15px 10px 100px 0; */
 }
 .confirm a{
     text-decoration: none;

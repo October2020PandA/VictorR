@@ -33,7 +33,9 @@
                 <label for="time_list" id="time_list">Time: </label><input type="time" name="time_list" step="60" value="{{date.time}}">
                 <label for="desc" id="desc">Edit Description</label><input type="text" name="desc" value="{{date.description}}">
                 <button type="submit" class="btn btn-secondary btn-sm">Edit</button>
-                <button class="btn btn-primary btn-sm"><a href="/home">Cancel</a></button>
+                <form action="/home" method="GET">
+                    <button class="btn btn-primary btn-sm">Cancel</button>
+                </form>
             </form>
         </div>
 
