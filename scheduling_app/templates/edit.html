@@ -30,7 +30,7 @@
             <form action="/edit_date/{{date.id}}" method="POST">
                 {% csrf_token %}
                 <label for="date" id="date">Edit Date: </label><input type="date" name="date" value="{{date.date|date:'Y-m-d' }}">
-                <label for="time_list" id="time_list">Time: </label><input type="time" name="time_list" step="60" value="{{date.time|time:'h:i A'}}">
+                <label for="time_list" id="time_list">Time: </label><input type="time" name="time_list" step="60" value="{{date.time}}">
                 <label for="desc" id="desc">Edit Description</label><input type="text" name="desc" value="{{date.description}}">
                 <button type="submit" class="btn btn-secondary btn-sm">Edit</button>
                 <button class="btn btn-primary btn-sm"><a href="/home">Cancel</a></button>

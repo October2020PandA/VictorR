@@ -6,10 +6,14 @@
     <title>Scheduling App</title>
     {% load static %}
     <link rel="stylesheet" href="{% static 'style.css' %}">
-    <!-- <link rel="stylesheet" href="{% static 'cstyle.css' %}"> -->
+    <link rel="stylesheet" href="{% static 'cstyle.css' %}">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+
+<!-- Calendar links and scripts -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css">
 </head>
 <body>
     
@@ -46,80 +50,22 @@
             <label for="desc">Description:</label><input type="text" name="desc">
             <button type="submit" class="btn btn-primary">Add</button>
         </form>
-        
 
         <div class="calendar">
             <h2>Calendar</h2>
-            <a href="/prev_month"> << Prev</a><a href="/next_month">Next >> </a>
-            {{ cal }}
+            
+            <!-- <div class="clearfix">
+                <a class="btn btn-info left" href="/prev_mo/{{month}}"> Previous Month </a>
+                <a class="btn btn-info right" href="/next_mo"> Next Month </a>
+            </div> -->
 
-            <!-- <table border="0" cellpadding="0" cellspacing="0" class="month"> 
-                <tr>
-                    <th colspan="7" class="month">October{{today.month}} 2020</th>
-                </tr> 
-                <tr>
-                    <th class="mon">Mon</th>
-                    <th class="tue">Tue</th>
-                    <th class="wed">Wed</th>
-                    <th class="thu">Thu</th>
-                    <th class="fri">Fri</th>
-                    <th class="sat">Sat</th>
-                    <th class="sun">Sun</th>
-                </tr> 
-                <tr>
-                    <td class="noday">&nbsp;</td>
-                    <td class="noday">&nbsp;</td>
-                    <td class="noday">&nbsp;</td>
-                    <td class="thu">1</td>
-                    <td class="fri">2</td>
-                    <td class="sat">3</td>
-                    <td class="sun">4</td>
-                </tr>
-                <tr>
-                    <td class="noday">&nbsp;</td>
-                    <td class="noday">&nbsp;</td>
-                    <td class="noday">&nbsp;</td>
-                    <td class="thu">1</td>
-                    <td class="fri">2</td>
-                    <td class="sat">3</td>
-                    <td class="sun">4</td>
-                </tr>
-                <tr>
-                    <td class="noday">&nbsp;</td>
-                    <td class="noday">&nbsp;</td>
-                    <td class="noday">&nbsp;</td>
-                    <td class="thu">1</td>
-                    <td class="fri">2</td>
-                    <td class="sat">3</td>
-                    <td class="sun">4</td>
-                </tr>
-                <tr>
-                    <td class="noday">&nbsp;</td>
-                    <td class="noday">&nbsp;</td>
-                    <td class="noday">&nbsp;</td>
-                    <td class="thu">1</td>
-                    <td class="fri">2</td>
-                    <td class="sat">3</td>
-                    <td class="sun">4</td>
-                </tr>
-                <tr>
-                    <td class="noday">&nbsp;</td>
-                    <td class="noday">&nbsp;</td>
-                    <td class="noday">&nbsp;</td>
-                    <td class="thu">1</td>
-                    <td class="fri">2</td>
-                    <td class="sat">3</td>
-                    <td class="sun">4</td>
-                </tr>
-            </table>  -->
-
+            <!-- <p>{{ calendar }}</p> -->
         </div>
-        <hr>
-        <h4>Your Appoinments List</h4>
+        
         <table class="table table-striped">
+            <h4>Your Appoinments List</h4>
             <thead>
                 <tr>
-                    <!-- <th scope="col">ID</th> -->
                     <th scope="col">Date</th>
                     <th scope="col">Time</th>
                     <th scope="col">Description</th>
@@ -132,7 +78,6 @@
                 {% for date in date_list %}
                     {% if request.user.id == date.scheduler.id %}
                     <tr>
-                        <!-- <td>{{ date.id }}</td> -->
                         <td>{{ date.date }}</td>
                         <td>{{ date.time }}</td>
                         <td>{{ date.description}}</td>
@@ -165,6 +110,14 @@
         Today : {{today}}
 
     </div>
+
+<!-- Calendar links and scripts -->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+crossorigin="anonymous"></script>
 
 </body>
 </html>

@@ -87,6 +87,7 @@ li{
 }
 .calendar{
     width: 55%;
+    height: 515px;
     text-align: center;
     border: 1px dotted orange;
 }

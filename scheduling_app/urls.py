@@ -14,6 +14,6 @@ urlpatterns = [
     path('confirm_page/<int:id>', views.confirm_page),
     path('confirm/<int:id>', views.confirm),
     path('un-confirm/<int:id>', views.un_confirm),
-    path('prev_month', views.prev_month),
-    path('next_month', views.next_month),
+    path('prev_mo/<int:id>', views.home),
+    # path('next_mo', views.next_month),
 ]

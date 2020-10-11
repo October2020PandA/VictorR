@@ -14,11 +14,12 @@ from django.utils.html import strip_tags
 
 # Calendar imports #
 # from django.shortcuts import render_to_response
-# from django.utils.safestring import mark_safe
+from django.utils.safestring import mark_safe
 # from django.views import generic
 # from calendar import HTMLCalendar
-# from .utils import Calendar
-from datetime import date, time, datetime
+from .utils import Calendar
+
+from datetime import date, time, datetime, timedelta
 import datetime
 import time
 from calendar import HTMLCalendar
@@ -52,33 +53,55 @@ def log(request):
     messages.error(request, "Incorrect Login")
     return redirect('/')
 
-# month = datetime.date.today().month
-
 @login_required(login_url='/')
 def home(request):
     month = datetime.date.today().month
     year = datetime.date.today().year
+    # d = datetime.date.today()
     # cal = calendar.HTMLCalendar(firstweekday=0)
-    cal = calendar.month(year, month)
+    # cal = calendar.month(year, month)
+    # d = datetime.date.today().day
+    # print(month, "x"*10)
+
+##########  New Calendar Section
+    def get_date(req_day):
+        if req_day:
+            year, month = (int(x) for x in req_day.split('-'))
+            return date(year, month, day=1)
+        return datetime.today()
+
+    # d = get_date(self.request.GET.get('month', None))
+    cal = Calendar(year, month)
+    html_cal = cal.formatmonth(withyear=True)
+
+##########
     context = {
         "date_list": Schedules.objects.all(),
-        # "cal": cal.formatmonth(year, month),
-        "cal": cal,
         "today": datetime.date.today(),
-        "month": month,
+        # "cal": cal.formatmonth(year, month),
+        # "cal": cal,
+        'calendar': mark_safe(html_cal),
+        'month': month,
+        
     }
     return render(request, 'home.html', context)
 
-def prev_month(request):
-    
-    # month = month - 1
-    return redirect('/home')
+def prev_month(request, id):
+    pass
+    # d = datetime.date.today().day
+    # first = d.replace(day=1)
+    # prev_month = first - timedelta(days=1)
+    # month = 'month=' + str(prev_month.year) + '-' + str(prev_month.month)
+    # return month
 
 def next_month(request):
-    
-    # month = (datetime.date.today().month) + 1
-    return redirect('/home')
-
+    pass
+    # d = datetime.date.today().day
+    # days_in_month = calendar.monthrange(d.year, d.month)[1]
+    # last = d.replace(day=days_in_month)
+    # next_month = last + timedelta(days=1)
+    # month = 'month=' + str(next_month.year) + '-' + str(next_month.month)
+    # return month
 
 
 def log_out(request):
@@ -104,8 +127,10 @@ def remove_date(request, id):
 
 @login_required(login_url='/')
 def edit_page(request, id):
+    date = Schedules.objects.get(id=id)
+    date.time = str(date.time)
     context = {
-        "date": Schedules.objects.get(id=id),
+        "date": date,
     }
     return render(request, 'edit.html', context)
 
@@ -118,6 +143,7 @@ def edit_date(request, id):
             return redirect (f'/edit/{id}')
         schedule_date = Schedules.objects.get(id=id)
         schedule_date.date = request.POST['date']
+        schedule_date.time = request.POST['time_list']
         schedule_date.description = request.POST['desc']
         schedule_date.save()        
         return redirect('/home')
