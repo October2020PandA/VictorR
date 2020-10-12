@@ -8,7 +8,13 @@
     <link rel="stylesheet" href="{% static 'style.css' %}">
     <!-- <link rel="stylesheet" href="{% static 'cstyle.css' %}"> -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    
+    <!-- Calendar links and scripts -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
 
 <!-- Calendar links and scripts -->
@@ -56,12 +62,12 @@
         <div class="calendar">
             <h2>Calendar</h2>
             
-            <!-- <div class="clearfix">
+            <div class="clearfix">
                 <a class="btn btn-info left" href="/prev_mo/{{month}}"> Previous Month </a>
                 <a class="btn btn-info right" href="/next_mo"> Next Month </a>
             </div>
 
-            {{ calendar }} -->
+            <!-- {{ calendar }} -->
             
         </div>
         
@@ -74,7 +80,7 @@
                         <th scope="col">Date</th>
                         <th scope="col">Time</th>
                         <th scope="col">Description</th>
-                        <!-- <th scope="col">Scheduled by</th> -->
+                        
                         <th scope="col">Status</th>
                         <th scope="col">Action</th>
                     </tr>
@@ -86,7 +92,7 @@
                             <td>{{ date.date }}</td>
                             <td>{{ date.time }}</td>
                             <td>{{ date.description}}</td>
-                            <!-- <td>{{ date.scheduler.first_name }}</td> -->
+                            
                             {% if date.confirm == True %}
                                 <td>Confirmed</td>
                             {% else %}
@@ -106,14 +112,14 @@
                                     <form class="table_btn" action="/edit/{{date.id}}">
                                         <button class="btn btn-secondary">Edit</button>
                                     </form>
-                                    <form class="table_btn_del" action="/remove/{{date.id}}">
+                                    <form class="table_btn_del" action="/remove/{{date.id}}" method="GET">
                                         <button class="btn btn-danger">Delete</button>
                                     </form>
                             </td>
                             {% else %}
                             <td>
-                                <form class="table_btn_del" action="/remove/{{date.id}}">
-                                    <button class="btn btn-danger">Delete</button>
+                                <form class="table_btn_del" action="/remove/{{date.id}}" method="GET" id="table_btn_del">
+                                    <button class="btn btn-danger" >Delete</button>
                                 </form>
                             </td>
                             {% endif %}
@@ -127,18 +133,10 @@
 
     </div>
 
-<!-- Calendar links and scripts -->
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-crossorigin="anonymous"></script>
-
 </body>
 
 <!-- Ajax section to update the appoinments list  -->
-<!-- <script>
+<script>
     $('form.add_date').submit(function(e){
         e.preventDefault()
         $.ajax({
@@ -146,25 +144,22 @@ crossorigin="anonymous"></script>
             method: 'post',
             data: $(this).serialize(),
             success: function(serverResponse){
-                console.log('H'*25)
+                $('.table_list').html(serverResponse)
+            }
+        })
+    })
+
+    $('form.table_btn_del').submit(function(e){
+        e.preventDefault()
+        $.ajax({
+            url: $('#table_btn_del').attr('action'),
+            method: 'get',
+            data: $(this).serialize(),
+            success: function(serverResponse){
                 $('.table_list').html(serverResponse)
             }
         })
     })
 </script>
-<script>
-    $('form.table_btn_del').submit(function(e){
-        e.preventDefault()
-        $.ajax({
-            url: '/remove/{{date.id}}',
-            method: 'get',
-            data: $(this).serialize(),
-            success: function(serverResponse){
-                console.log('H'*25)
-                $('.table_list').html(serverResponse)
-            }
-        })
-    })
-</script> -->
 
 </html>

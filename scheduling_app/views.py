@@ -117,22 +117,24 @@ def add_date(request):
             return redirect ('/home')
         Schedules.objects.create(date=request.POST['date'],time=request.POST['time_list'], description=request.POST['desc'], scheduler=request.user)
 
-        # context = {
-        #     "date_list": Schedules.objects.all(),
-        # }
-        # return render(request, 'a_list.html', context)
+        context = {
+            "date_list": Schedules.objects.all(),
+            "today": datetime.date.today(),
+        }
+        return render(request, 'a_list.html', context)
         #####
-        return redirect('/home')
+        # return redirect('/home')
     return redirect('/home')
 
 def remove_date(request, id):
     delete_date = Schedules.objects.get(id=id)
     delete_date.delete()
-    # context = {
-    #     "date_list": Schedules.objects.all(),
-    # }
-    # return render(request, 'a_list.html', context)
-    return redirect('/home')
+    context = {
+        "date_list": Schedules.objects.all(),
+        "today": datetime.date.today(),
+    }
+    return render(request, 'a_list.html', context)
+    # return redirect('/home')
 
 @login_required(login_url='/')
 def edit_page(request, id):
