@@ -3,7 +3,7 @@
     padding: 0;
 }
 .wrap{
-    width: 1000px;
+    width: 960px;
     margin: auto;
     
 }
@@ -63,11 +63,11 @@ li{
     text-align: right;
     margin-left: 40%;
 }
-.add_date, .calendar{
+.add_form, .calendar{
     display: inline-block;
     vertical-align: top;
 }
-.add_date{
+.add_form{
     width: 30%;
     margin: 0 50px 10px 0;
     /* border: 1px dotted orange; */
@@ -75,9 +75,6 @@ li{
 .add_date button{
     margin: 15px 0 0 40%
 }
-/* .add_date input{
-    margin: 0 0 0 0;
-} */
 .messages_add li, .messages_edit li{
     font-weight: bold;
     margin: 0 0 0 30px;
@@ -87,18 +84,21 @@ li{
 }
 .calendar{
     width: 55%;
-    /* height: 515px; */
+    /* height: 500px; */
     text-align: center;
     border: 1px dotted orange;
 }
-/* table a{
-    width: 100%;
-    color: whitesmoke;
-    text-decoration: none;
-    text-align: center;
-} */
-.table_btn button{
-    width: 115px;
+
+.table_list{
+    width: 98%;
+    display: block;
+}
+.table_btn, .table_btn_del{
+    display: inline-block;
+}
+.table_btn button, .table_btn_del button{
+    width: 105px;
+    font-size: medium;
     text-align: center;
 }
 
@@ -123,19 +123,19 @@ li{
     width: 100px;
     color: whitesmoke;
     text-align: center;
-    margin: 15px 0 20px 20px;
+    margin: 10px 0 0 0;
 }
 
 /* Confirmation.html Styling */
 
-.confirm form button{
-    width: 140px;
-    text-align: center;
-    /* margin: 15px 10px 100px 0; */
+.confirm{
+    width: 60%;
 }
-.confirm a{
-    text-decoration: none;
-    color: whitesmoke;
+.confirm button, .back_btn button{
+    width: 150px;
+    font-weight: bold;
+    text-align: center;
+    margin: 10px 0 0 0;
 }
 .confirm input{
     width: auto;

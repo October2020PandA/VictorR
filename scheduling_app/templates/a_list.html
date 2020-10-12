@@ -1,0 +1,57 @@
+<div class="table_list">
+<table class="table table-striped">
+    <h4>Your Appoinments List</h4>
+    <thead>
+        <tr>
+            <th scope="col">Date</th>
+            <th scope="col">Time</th>
+            <th scope="col">Description</th>
+            <!-- <th scope="col">Scheduled by</th> -->
+            <th scope="col">Status</th>
+            <th scope="col">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for date in date_list %}
+            {% if request.user.id == date.scheduler.id %}
+            <tr>
+                <td>{{ date.date }}</td>
+                <td>{{ date.time }}</td>
+                <td>{{ date.description}}</td>
+                <!-- <td>{{ date.scheduler.first_name }}</td> -->
+                {% if date.confirm == True %}
+                    <td>Confirmed</td>
+                {% else %}
+                    <td>Pending</td>
+                {% endif %}
+                {% if date.date > today %}
+                <td>
+                    {% if date.confirm == False %}
+                        <form class="table_btn" action="/confirm_page/{{date.id}}">
+                            <button class="btn btn-success">Confirm</button>
+                        </form>
+                        {% else %}
+                        <form class="table_btn" action="/un-confirm/{{date.id}}">
+                            <button class="btn btn-success">Un-Confirm</button>
+                        </form>
+                    {% endif %}
+                        <form class="table_btn" action="/edit/{{date.id}}">
+                            <button class="btn btn-secondary">Edit</button>
+                        </form>
+                        <form class="table_btn" action="/remove/{{date.id}}">
+                            <button class="btn btn-danger">Delete</button>
+                        </form>
+                </td>
+                {% else %}
+                <td>
+                    <form class="table_btn" action="/remove/{{date.id}}">
+                        <button class="btn btn-danger">Delete</button>
+                    </form>
+                </td>
+                {% endif %}
+            </tr>
+            {% endif %}
+        {% endfor %}
+    </tbody>
+</table>
+</div>

@@ -17,23 +17,22 @@
       <h2>Confirm your appoinment:</h2>
     </div>
 
-    <div class="confirm">
-      <form action="/confirm/{{schedule.id}}" method="GET">
-        
-        <h3>{{request.user.first_name}} {{request.user.last_name}}</h3>
-        <h3>Date: {{ schedule.date }}</h3>
-        <h3>Time: {{ schedule.time }}</h3>
-        <h3>Description: {{ schedule.description }}</h3>
-        <h3>Email: {{ schedule.scheduler.email }}</h3>
-        <label for="email_check">Check the box if you want to get an Email</label>
-        <input type="checkbox" type="hidden" name="email_check" value="{{ schedule.scheduler.email }}">
-        <form action="/home" method="GET">
-          <button type="submit" class="btn btn-secondary btn-sm">Go Back</button>
-        </form>
-        <button type="submit" class="btn btn-success btn-sm">Confirm</button>
+    <form action="/confirm/{{schedule.id}}" method="GET" class="confirm">
+      
+      <h3>{{request.user.first_name}} {{request.user.last_name}}</h3>
+      <h3>Date: {{ schedule.date }}</h3>
+      <h3>Time: {{ schedule.time }}</h3>
+      <h3>Description: {{ schedule.description }}</h3>
+      <h3>Email: {{ schedule.scheduler.email }}</h3>
+      <label for="email_check">Check the box if you want to get an Email</label>
+      <input type="checkbox" type="hidden" name="email_check" value="{{ schedule.scheduler.email }}">
+      <button type="submit" class="btn btn-success btn-sm">Confirm</button>
 
-      </form>
-    </div>
+    </form>
+
+    <form action="/home" method="GET" class="back_btn">
+      <button class="btn btn-secondary btn-sm">Go Back</button>
+    </form>
 
   </div>
 

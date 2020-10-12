@@ -18,7 +18,7 @@ class SchedulesManager(models.Manager):
         if len(postData['date']) == 0:
             errors['date']="A Date is required"
         elif parse_date(postData['date']) < datetime.date.today():
-            errors['date']="You must schedule on a future date"
+            errors['date']="You must schedule in a future date"
         if len(postData['time_list']) == 0:
             errors['time_list']="A Time is required"
         if len(postData['desc']) == 0:
